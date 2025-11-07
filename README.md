@@ -1,1 +1,42 @@
-# UVVFintech - Grupo 3
+# 💳 UVVFintech - Grupo 3
+
+Projeto desenvolvido para a disciplina **Programação Orientada a Objetos II** (Professor Vinícius Rosalen da Silva - UVV).
+
+## 🧠 Objetivo
+Criar um **sistema bancário em WPF (C#)** aplicando o padrão **MVC**, princípios **SOLID** e persistência de dados com **Entity Framework Core**.
+
+## 🏗️ Estrutura
+- **Models/** → classes principais (Cliente, Conta, Transacao)
+- **Controllers/** → lógica de negócios
+- **Views/** → telas WPF (XAML)
+- **Persistencia/** → DbContext e Migrations
+- **Services/** → utilitários e classes auxiliares
+
+## ⚙️ Tecnologias
+- C# / .NET 9.0  
+- WPF  
+- Entity Framework Core  
+- SQL Server (LocalDB)  
+- Visual Studio
+
+## 🚀 Como rodar
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/KrigerThomas/UVVFintech_Grupo3.git
+2. Abra o projeto no Visual Studio
+3. No Package Manager Console, execute:
+   ```bash
+    Update-Database
+4. Pressione Control + F5 para executar o sistema.
+
+## 👥 Equipe
+
+Thomás Kriger 
+
+Cícero Calil 
+
+Cauã Caetano
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais informações.
