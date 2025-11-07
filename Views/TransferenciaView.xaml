@@ -1,0 +1,21 @@
+﻿<Page x:Class="UVVFintech_Grupo3.Views.TransferenciaView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Transferência">
+
+    <Grid Background="#0F172A">
+        <StackPanel Margin="30">
+            <TextBlock Text="Transferir" Foreground="White" FontSize="20" Margin="0,0,0,20"/>
+
+            <!-- Substitua PlaceholderText por um TextBlock sobreposto ou Watermark personalizado -->
+            <TextBox x:Name="txtContaOrigem" Margin="0,5"/>
+            <TextBox x:Name="txtContaDestino" Margin="0,5"/>
+            <TextBox x:Name="txtValor" Margin="0,5"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <Button Content="Confirmar" Width="120" Margin="5" Click="BtnConfirmar_Click"/>
+                <Button Content="Voltar" Width="120" Margin="5" Click="BtnVoltar_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>
