@@ -1,23 +1,26 @@
 ﻿<Page x:Class="UVVFintech_Grupo3.Views.TransacoesView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Title="Transações">
+      Title="Transações"
+      Background="#0F172A">
 
-    <Grid Background="#0F172A">
-        <StackPanel Margin="30">
-            <TextBlock Text="Operações Bancárias" Foreground="White" FontSize="20" Margin="0,0,0,20"/>
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="392">
+            <TextBlock Text="Escolha a operação" Foreground="White" FontSize="24" FontWeight="Bold" Margin="0,0,0,30" Width="215" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="15"/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
 
-            <Button Content="Sacar" Width="200" Height="40" Margin="0,5"
-                    Background="#3B82F6" Foreground="White" Click="BtnSacar_Click"/>
-
-            <Button Content="Depositar" Width="200" Height="40" Margin="0,5"
-                    Background="#3B82F6" Foreground="White" Click="BtnDepositar_Click"/>
-
-            <Button Content="Transferir" Width="200" Height="40" Margin="0,5"
-                    Background="#3B82F6" Foreground="White" Click="BtnTransferir_Click"/>
-
-            <Button Content="Voltar" Width="200" Height="40" Margin="20" 
-                    Background="#64748B" Foreground="White" Click="BtnVoltar_Click"/>
+            <Button Content="Saque" Width="200" Height="50" Margin="10" Click="BtnSacar_Click"/>
+            <Button Content="Depósito" Width="200" Height="50" Margin="10" Click="BtnDepositar_Click"/>
+            <Button Content="Transferência" Width="200" Height="50" Margin="10" Click="BtnTransferir_Click"/>
+            <Button Content="Voltar" Width="200" Height="50" Margin="30,20,30,0" Background="#334155" Click="BtnVoltar_Click"/>
         </StackPanel>
     </Grid>
 </Page>

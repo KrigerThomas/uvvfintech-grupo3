@@ -1,33 +1,24 @@
 ﻿<Page x:Class="UVVFintech_Grupo3.Views.LoginView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Title="Login">
+      Title="Login"
+      Background="#0F172A">
 
-    <Grid Background="#0F172A">
-        <Border CornerRadius="15" Background="#1E293B" Padding="30" Width="350" Height="300" 
+    <Grid>
+        <Border CornerRadius="12" Background="#142033" Padding="30" Width="380" Height="320" 
                 HorizontalAlignment="Center" VerticalAlignment="Center" >
             <StackPanel VerticalAlignment="Center" >
-                <TextBlock Text="UVV Fintech" Foreground="White" FontSize="24" 
+                <TextBlock Text="UVV Fintech" Foreground="White" FontSize="26" 
                            HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
-                <TextBox x:Name="txtUsuario" Margin="0,5">
-                    <TextBox.Style>
-                        <Style TargetType="TextBox">
-                            <Setter Property="Foreground" Value="Gray"/>
-                            <Setter Property="Text" Value="Usuário"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsKeyboardFocused" Value="True">
-                                    <Setter Property="Foreground" Value="Black"/>
-                                    <Setter Property="Text" Value=""/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
-                <PasswordBox x:Name="txtSenha" Margin="0,5"/>
-                <Button Content="Entrar" Margin="0,20,0,0" Height="35" 
-                        Background="#3B82F6" Foreground="White" 
-                        Click="BtnEntrar_Click"/>
+                <TextBlock Text="Usuário" Foreground="White" Margin="0,4,0,2"/>
+                <TextBox x:Name="txtUsuario" Height="32" Background="#0F172A" Foreground="White" BorderBrush="#273444"/>
+
+                <TextBlock Text="Senha" Foreground="White" Margin="0,8,0,2"/>
+                <PasswordBox x:Name="txtSenha" Height="32" Background="#0F172A" Foreground="White" BorderBrush="#273444"/>
+
+                <Button Content="Entrar" Margin="0,18,0,0" Height="36" 
+                        Background="#3B82F6" Foreground="White" Click="BtnEntrar_Click"/>
             </StackPanel>
         </Border>
     </Grid>

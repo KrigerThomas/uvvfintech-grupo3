@@ -4,8 +4,26 @@
       Title="Menu Principal">
 
     <Grid Background="#0F172A">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Menu Principal" FontSize="22" Foreground="White" Margin="0,0,0,30"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Width="300" Height="300">
+            <StackPanel.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </StackPanel.RenderTransform>
+
+            <TextBlock Text="Menu Principal" FontSize="22" FontWeight="Bold" Foreground="White" Height="90" Width="159" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="0" Y="25"/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
 
             <Button Content="Clientes" Width="200" Height="40" Margin="0,5"
                     Background="#3B82F6" Foreground="White"
