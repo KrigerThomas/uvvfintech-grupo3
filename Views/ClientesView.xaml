@@ -24,7 +24,15 @@
                 <Button Content="Voltar" Width="100" Margin="5" Click="BtnVoltar_Click"/>
             </StackPanel>
 
-            <ListView x:Name="lvClientes" Margin="0,20,0,0" Height="200"/>
+            <ListView x:Name="lvClientes" Margin="0,20,0,0" Height="200">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="50"/>
+                        <GridViewColumn Header="Nome" DisplayMemberBinding="{Binding Nome}" Width="250"/>
+                        <GridViewColumn Header="CPF" DisplayMemberBinding="{Binding Cpf}" Width="120"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </StackPanel>
     </Grid>
 </Page>

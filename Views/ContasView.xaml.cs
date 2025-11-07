@@ -16,7 +16,7 @@ namespace UVVFintech_Grupo3.Views
         private void BtnCriar_Click(object sender, RoutedEventArgs e)
         {
             string tipo = ((ComboBoxItem)cbTipoConta.SelectedItem).Content.ToString()!;
-            //_controller.CriarConta(txtCpfCliente.Text, tipo);
+            _controller.CriarConta(txtCpfCliente.Text, tipo);
             MessageBox.Show("Conta criada com sucesso!");
         }
 
@@ -30,7 +30,7 @@ namespace UVVFintech_Grupo3.Views
             if (lvContas.SelectedItem is not null)
             {
                 dynamic conta = lvContas.SelectedItem;
-                //_controller.ExcluirConta(conta.Id);
+                _controller.ExcluirConta(conta.Id);
                 MessageBox.Show("Conta excluída com sucesso!");
             }
         }

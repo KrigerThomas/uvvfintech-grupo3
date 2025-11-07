@@ -13,6 +13,7 @@ namespace UVVFintech_Grupo3.Models
         public string Numero { get; set; } = string.Empty;
         public decimal Saldo { get; set; }
 
+
         public int ClienteId { get; set; }
         public Cliente? Cliente { get; set; }
     }
