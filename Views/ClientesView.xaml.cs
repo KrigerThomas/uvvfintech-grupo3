@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using UVVFintech_Grupo3.Controllers;
+using UVVFintech_Grupo3.Models;
 
 namespace UVVFintech_Grupo3.Views
 {
@@ -13,27 +14,67 @@ namespace UVVFintech_Grupo3.Views
             InitializeComponent();
         }
 
-        private void BtnCadastrar_Click(object sender, RoutedEventArgs e)
-        {
-            _controller.Cadastrar(txtNome.Text, txtCpf.Text);
-            MessageBox.Show("Cliente cadastrado com sucesso!");
-        }
-
-        private void BtnBuscar_Click(object sender, RoutedEventArgs e)
+        private void AtualizarListView()
         {
             lvClientes.ItemsSource = _controller.ListarTodos();
         }
 
-        private void BtnExcluir_Click(object sender, RoutedEventArgs e)
+        private void BtnCadastrar_Click(object sender, RoutedEventArgs e)
         {
-            if (lvClientes.SelectedItem is not null)
+            try { 
+            _controller.Cadastrar(txtNome.Text, txtCpf.Text);
+            MessageBox.Show("Cliente cadastrado com sucesso!");
+
+            txtNome.Clear();
+            txtCpf.Clear();
+            }
+            catch (Exception ex)
             {
-                dynamic cliente = lvClientes.SelectedItem;
-                _controller.Excluir(cliente.Id);
-                MessageBox.Show("Cliente excluído.");
+                MessageBox.Show($"Erro ao cadastrar cliente: {ex.Message}", "Erro" , MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
+        private void BtnBuscar_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txtCpf.Text))
+                {
+                    // Se CPF não informado → listar todos
+                    AtualizarListView();
+                    return;
+                }
+
+                var cliente = _controller.BuscarPorCpf(txtCpf.Text);
+                lvClientes.ItemsSource = new List<Cliente> { cliente };
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+
+        }
+
+        private void BtnExcluir_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (lvClientes.SelectedItem is not Cliente selecionado)
+                {
+                    MessageBox.Show("Selecione um cliente.", "Aviso");
+                    return;
+                }
+
+                _controller.Excluir(selecionado.Id);
+                MessageBox.Show("Cliente excluído com sucesso!");
+                AtualizarListView();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao excluir cliente: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
         private void BtnVoltar_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();

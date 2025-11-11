@@ -4,7 +4,7 @@
         Title="UVV Fintech - Grupo 3"
         Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
-        Background="#0F172A">
+        Background="#0F172A" WindowStyle="None">
     <Grid Width="802">
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Width="800"/>
     </Grid>
