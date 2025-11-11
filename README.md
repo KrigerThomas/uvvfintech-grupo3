@@ -23,10 +23,12 @@ Criar um **sistema bancário em WPF (C#)** aplicando o padrão **MVC**, princíp
 1. Clone o repositório:
    ```bash
    git clone https://github.com/KrigerThomas/UVVFintech_Grupo3.git
+   
 2. Abra o projeto no Visual Studio
 3. No Package Manager Console, execute:
    ```bash
     Update-Database
+   
 4. Pressione Control + F5 para executar o sistema.
 
 ## 👥 Equipe
