@@ -1,5 +1,4 @@
 ﻿using Microsoft.Data.SqlClient;
-using System.Data;
 using UVVFintech_Grupo3.Models;
 
 namespace UVVFintech_Grupo3.DB
@@ -20,16 +19,17 @@ namespace UVVFintech_Grupo3.DB
                 SELECT Id, Tipo, Valor, Data, ContaOrigemId, ContaDestinoId
                 FROM Transacoes
                 WHERE Data BETWEEN @Inicio AND @Fim
-                AND (ContaOrigemId = @Conta OR ContaDestinoId = @Conta)
+                  AND (@Conta = ContaOrigemId OR @Conta = ContaDestinoId)
                 ORDER BY Data DESC;
             ";
 
             using var cmd = new SqlCommand(sql, conexao);
-            cmd.Parameters.Add("@Inicio", SqlDbType.DateTime).Value = inicio;
-            cmd.Parameters.Add("@Fim", SqlDbType.DateTime).Value = fim;
-            cmd.Parameters.Add("@Conta", SqlDbType.Int).Value = contaId;
+            cmd.Parameters.AddWithValue("@Inicio", inicio);
+            cmd.Parameters.AddWithValue("@Fim", fim);
+            cmd.Parameters.AddWithValue("@Conta", contaId);
 
             using var reader = cmd.ExecuteReader();
+
             while (reader.Read())
             {
                 lista.Add(new Transacao
