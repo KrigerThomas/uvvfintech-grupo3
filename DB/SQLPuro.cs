@@ -2,14 +2,14 @@
 using System.Data;
 using UVVFintech_Grupo3.Models;
 
-namespace UVVFintech_Grupo3.Services
+namespace UVVFintech_Grupo3.DB
 {
-    public class RelatorioService
+    public class SQLPuro
     {
         private readonly string _connectionString =
             "Server=(localdb)\\mssqllocaldb;Database=UVVFintechGrupo3DB;Trusted_Connection=True;";
 
-        public List<Transacao> BuscarExtratoPorPeriodo(DateTime inicio, DateTime fim)
+        public List<Transacao> BuscarExtratoPorPeriodo(DateTime inicio, DateTime fim, int contaId)
         {
             var lista = new List<Transacao>();
 
@@ -19,11 +19,15 @@ namespace UVVFintech_Grupo3.Services
             string sql = @"
                 SELECT Id, Tipo, Valor, Data, ContaOrigemId, ContaDestinoId
                 FROM Transacoes
-                WHERE Data BETWEEN @Inicio AND @Fim";
+                WHERE Data BETWEEN @Inicio AND @Fim
+                AND (ContaOrigemId = @Conta OR ContaDestinoId = @Conta)
+                ORDER BY Data DESC;
+            ";
 
             using var cmd = new SqlCommand(sql, conexao);
             cmd.Parameters.Add("@Inicio", SqlDbType.DateTime).Value = inicio;
             cmd.Parameters.Add("@Fim", SqlDbType.DateTime).Value = fim;
+            cmd.Parameters.Add("@Conta", SqlDbType.Int).Value = contaId;
 
             using var reader = cmd.ExecuteReader();
             while (reader.Read())

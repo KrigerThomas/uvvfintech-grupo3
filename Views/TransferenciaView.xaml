@@ -1,38 +1,62 @@
 ﻿<Page x:Class="UVVFintech_Grupo3.Views.TransferenciaView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Title="Transferência">
+      Title="Transferência"
+      Background="#0F172A">
 
-    <Grid Background="#0F172A">
-        <Border CornerRadius="10"
-                Background="#1E293B"
+    <Grid>
+        <Border CornerRadius="12"
+                Background="#142033"
                 Padding="30"
-                Width="400"
-                Height="420"
+                Width="420"
+                Height="430"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
+
             <StackPanel>
+
                 <TextBlock Text="Transferência"
                            Foreground="White"
-                           FontSize="22"
+                           FontSize="24"
                            FontWeight="Bold"
                            Margin="0,0,0,20"
                            HorizontalAlignment="Center"/>
 
-                <TextBlock Text="Conta de origem:" Foreground="White" Margin="0,5,0,0"/>
-                <TextBox x:Name="txtContaOrigem" Margin="0,5,0,10"/>
+                <TextBlock Text="Conta de origem" Foreground="White" Margin="0,8,0,2"/>
+                <TextBox x:Name="txtContaOrigem"
+                         Height="32"
+                         Background="#0F172A"
+                         Foreground="White"
+                         BorderBrush="#273444"
+                         BorderThickness="1"/>
 
-                <TextBlock Text="Conta de destino:" Foreground="White" Margin="0,5,0,0"/>
-                <TextBox x:Name="txtContaDestino" Margin="0,5,0,10"/>
+                <TextBlock Text="Conta de destino" Foreground="White" Margin="0,12,0,2"/>
+                <TextBox x:Name="txtContaDestino"
+                         Height="32"
+                         Background="#0F172A"
+                         Foreground="White"
+                         BorderBrush="#273444"
+                         BorderThickness="1"/>
 
-                <TextBlock Text="Valor:" Foreground="White" Margin="0,5,0,0"/>
-                <TextBox x:Name="txtValor" Margin="0,5,0,10"/>
+                <TextBlock Text="Valor" Foreground="White" Margin="0,12,0,2"/>
+                <TextBox x:Name="txtValor"
+                         Height="32"
+                         Background="#0F172A"
+                         Foreground="White"
+                         BorderBrush="#273444"
+                         BorderThickness="1"/>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                    <Button Content="Confirmar" Width="120" Margin="5" Click="BtnConfirmar_Click"/>
-                    <Button Content="Voltar" Width="120" Margin="5" Background="#334155" Click="BtnVoltar_Click"/>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0,25,0,0">
+
+                    <Button Content="Confirmar" Width="130" Click="BtnConfirmar_Click"/>
+                    <Button Content="Voltar" Width="130" Background="#334155" Click="BtnVoltar_Click"/>
+
                 </StackPanel>
+
             </StackPanel>
+
         </Border>
     </Grid>
 </Page>

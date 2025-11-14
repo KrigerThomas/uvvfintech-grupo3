@@ -11,6 +11,7 @@
             <StackPanel Orientation="Horizontal" Margin="0,2">
                 <TextBlock Text="CPF Cliente:" Width="100" Foreground="White" VerticalAlignment="Center"/>
                 <TextBox x:Name="txtCpfCliente" Width="220" Background="#1E293B" Foreground="White" BorderThickness="0" Padding="6"/>
+                <Button Content="Selecionar Cliente" Width="150" Background="#3B82F6" Foreground="White" Click="BtnSelecionarCliente_Click"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,8">

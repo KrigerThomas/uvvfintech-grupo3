@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using UVVFintech_Grupo3.Persistencia;
+using UVVFintech_Grupo3.DB;
 
 #nullable disable
 
@@ -127,7 +127,7 @@ namespace UVVFintech_Grupo3.Migrations
                     b.Property<double>("TaxaRendimento")
                         .HasColumnType("float");
 
-                    b.HasDiscriminator().HasValue("Poupanca");
+                    b.HasDiscriminator().HasValue("Poupança");
                 });
 
             modelBuilder.Entity("UVVFintech_Grupo3.Models.Conta", b =>

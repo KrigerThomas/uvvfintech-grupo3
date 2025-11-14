@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UVVFintech_Grupo3.Models;
 
-namespace UVVFintech_Grupo3.Persistencia
+namespace UVVFintech_Grupo3.DB
 {
     public class AppDbContext : DbContext
     {
@@ -22,7 +22,7 @@ namespace UVVFintech_Grupo3.Persistencia
             modelBuilder.Entity<Conta>()
                 .HasDiscriminator<string>("TipoConta")
                 .HasValue<ContaCorrente>("Corrente")
-                .HasValue<Poupanca>("Poupanca");
+                .HasValue<Poupanca>("Poupança");
         }
     }
 }

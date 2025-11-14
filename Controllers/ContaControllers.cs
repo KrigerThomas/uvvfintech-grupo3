@@ -1,80 +1,82 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using UVVFintech_Grupo3.DB;
 using UVVFintech_Grupo3.Models;
-using UVVFintech_Grupo3.Persistencia;
 
 namespace UVVFintech_Grupo3.Controllers
 {
     public class ContaController
     {
         private readonly AppDbContext _db = new();
+        private readonly SQLPuro _sql = new();
 
-        public void Depositar(int contaId, decimal valor)
+        public void CriarConta(string cpfCliente, string tipo)
         {
-            var conta = _db.Contas.Find(contaId);
-            if (conta == null) return;
+            ValidarEntradaCriar(cpfCliente, tipo);
 
-            conta.Saldo += valor;
+            var cliente = BuscarCliente(cpfCliente);
 
-            _db.Transacoes.Add(new Transacao
-            {
-                Tipo = "Depósito",
-                Valor = valor,
-                Data = DateTime.Now,
-                ContaOrigemId = contaId
-            });
+            VerificarSeJaExisteConta(cliente.Id, tipo);
 
+            var conta = CriarInstanciaDeConta(cliente.Id, tipo);
+
+            _db.Contas.Add(conta);
             _db.SaveChanges();
         }
 
-        public void Sacar(int contaId, decimal valor)
+        private void ValidarEntradaCriar(string cpfCliente, string tipo)
         {
-            var conta = _db.Contas.Find(contaId);
-            if (conta == null || conta.Saldo < valor) return;
+            if (string.IsNullOrWhiteSpace(cpfCliente) ||
+                cpfCliente.Length != 11 ||
+                !cpfCliente.All(char.IsDigit))
+                throw new ArgumentException("Informe um CPF válido com 11 dígitos.");
 
-            conta.Saldo -= valor;
-
-            _db.Transacoes.Add(new Transacao
-            {
-                Tipo = "Saque",
-                Valor = valor,
-                Data = DateTime.Now,
-                ContaOrigemId = contaId
-            });
-
-            _db.SaveChanges();
+            if (string.IsNullOrWhiteSpace(tipo))
+                throw new ArgumentException("Selecione o tipo da conta.");
         }
 
-        public void Transferir(int contaOrigemId, int contaDestinoId, decimal valor)
+        private Cliente BuscarCliente(string cpfCliente)
         {
-            var contaOrigem = _db.Contas.Find(contaOrigemId);
-            var contaDestino = _db.Contas.Find(contaDestinoId);
-
-            if (contaOrigem == null || contaDestino == null)
-                throw new Exception("Conta não encontrada.");
-
-            if (contaOrigem.Saldo < valor)
-                throw new Exception("Saldo insuficiente.");
-
-            // Atualiza saldos
-            contaOrigem.Saldo -= valor;
-            contaDestino.Saldo += valor;
-
-            // Registra transação
-            _db.Transacoes.Add(new Transacao
-            {
-                Tipo = "Transferência",
-                Valor = valor,
-                Data = DateTime.Now,
-                ContaOrigemId = contaOrigemId,
-                ContaDestinoId = contaDestinoId
-            });
-
-            _db.SaveChanges();
+            return _db.Clientes.FirstOrDefault(c => c.Cpf == cpfCliente)
+                ?? throw new Exception("Nenhum cliente encontrado com esse CPF.");
         }
 
+        private void VerificarSeJaExisteConta(int clienteId, string tipo)
+        {
+            bool jaExiste = _db.Contas.Any(c => c.ClienteId == clienteId && c.TipoConta == tipo);
 
-        //--------------------------------------------------------------//
+            if (jaExiste)
+                throw new Exception("O cliente já possui uma conta desse tipo.");
+        }
 
+        private Conta CriarInstanciaDeConta(int clienteId, string tipo)
+        {
+            string numero = Guid.NewGuid().ToString().Substring(0, 8);
+
+            if (tipo == "Corrente")
+            {
+                return new ContaCorrente
+                {
+                    ClienteId = clienteId,
+                    Numero = numero,
+                    Saldo = 0,
+                    Limite = 1000
+                };
+            }
+            else if (tipo == "Poupança" || tipo == "Poupanca")
+            {
+                return new Poupanca
+                {
+                    ClienteId = clienteId,
+                    Numero = numero,
+                    Saldo = 0,
+                    TaxaRendimento = 0.02
+                };
+            }
+            else
+            {
+                throw new Exception("Tipo de conta inválido.");
+            }
+        }
         public List<Conta> ListarTodas()
         {
             return _db.Contas
@@ -90,47 +92,61 @@ namespace UVVFintech_Grupo3.Controllers
                 .ToList();
         }
 
-        public void CriarConta(string cpfCliente, string tipo)
+        // OPERAÇÕES
+
+        public void Depositar(int contaId, decimal valor)
         {
-            if (string.IsNullOrWhiteSpace(cpfCliente) || cpfCliente.Length != 11 || !cpfCliente.All(char.IsDigit))
-                throw new ArgumentException("Informe o CPF do cliente que sejá válido.");
+            var conta = _db.Contas.Find(contaId)
+                ?? throw new Exception("Conta não encontrada.");
 
-            if (string.IsNullOrWhiteSpace(tipo))
-                throw new ArgumentException("Selecione o tipo da conta.");
+            conta.Depositar(valor);
 
-            var cliente = _db.Clientes.FirstOrDefault(c => c.Cpf == cpfCliente)
-                ?? throw new Exception("Nenhum cliente encontrado com esse CPF.");
+            RegistrarTransacao("Depósito", valor, contaId, null);
 
-            bool jaPossuiContaMesmoTipo = _db.Contas.Any(c => c.ClienteId == cliente.Id && EF.Property<string>(c, "TipoConta") == tipo);
-
-            if (jaPossuiContaMesmoTipo)
-                throw new Exception("O cliente já possui uma conta desse tipo.");
-
-            Conta novaConta;
-
-            if (tipo == "Corrente")
-                novaConta = new ContaCorrente
-                {
-                    ClienteId = cliente.Id,
-                    Saldo = 0,
-                    Numero = Guid.NewGuid().ToString().Substring(0, 8),
-                    Limite = 1000
-                };
-            else if (tipo == "Poupança" || tipo == "Poupanca")
-            {
-                novaConta = new Poupanca
-                {
-                    ClienteId = cliente.Id,
-                    Saldo = 0,
-                    Numero = Guid.NewGuid().ToString().Substring(0, 8),
-                    TaxaRendimento = 0.02
-                };
-            }
-            else
-                throw new Exception("Tipo de conta inválido.");
-
-            _db.Contas.Add(novaConta);
             _db.SaveChanges();
+        }
+
+        public void Sacar(int contaId, decimal valor)
+        {
+            var conta = _db.Contas.Find(contaId)
+                ?? throw new Exception("Conta não encontrada.");
+
+            conta.Sacar(valor);
+
+            RegistrarTransacao("Saque", valor, contaId, null);
+
+            _db.SaveChanges();
+        }
+
+        public void Transferir(int origem, int destino, decimal valor)
+        {
+            if (origem == destino)
+                throw new Exception("A conta de origem e destino devem ser diferentes.");
+
+            var contaOrigem = _db.Contas.Find(origem)
+                ?? throw new Exception("Conta de origem não encontrada.");
+
+            var contaDestino = _db.Contas.Find(destino)
+                ?? throw new Exception("Conta de destino não encontrada.");
+
+            contaOrigem.Sacar(valor);
+            contaDestino.Depositar(valor);
+
+            RegistrarTransacao("Transferência", valor, origem, destino);
+
+            _db.SaveChanges();
+        }
+
+        private void RegistrarTransacao(string tipo, decimal valor, int origem, int? destino)
+        {
+            _db.Transacoes.Add(new Transacao
+            {
+                Tipo = tipo,
+                Valor = valor,
+                Data = DateTime.Now,
+                ContaOrigemId = origem,
+                ContaDestinoId = destino
+            });
         }
 
         public void ExcluirConta(int id)
@@ -138,15 +154,19 @@ namespace UVVFintech_Grupo3.Controllers
             var conta = _db.Contas.Find(id)
                 ?? throw new Exception("Conta não encontrada.");
 
-            // Impedir exclusão se tiver transações 
-            bool temMovimentacoes = _db.Transacoes
+            bool possuiMov = _db.Transacoes
                 .Any(t => t.ContaOrigemId == id || t.ContaDestinoId == id);
 
-            if (temMovimentacoes)
+            if (possuiMov)
                 throw new Exception("Não é possível excluir uma conta com movimentações.");
 
             _db.Contas.Remove(conta);
             _db.SaveChanges();
+        }
+
+        public List<Transacao> ExtratoSql(DateTime inicio, DateTime fim, int contaId)
+        {
+            return _sql.BuscarExtratoPorPeriodo(inicio, fim, contaId);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UVVFintech_Grupo3.Persistencia;
+using UVVFintech_Grupo3.DB;
 using UVVFintech_Grupo3.Models;
-using System.Windows.Documents;
 
 namespace UVVFintech_Grupo3.Controllers
 {

@@ -9,6 +9,8 @@ namespace UVVFintech_Grupo3.Views
     {
         private readonly ContaController _controller = new();
 
+        private Cliente? clienteSelecionado;
+
         public ContasView()
         {
             InitializeComponent();
@@ -80,6 +82,20 @@ namespace UVVFintech_Grupo3.Views
             {
                 MessageBox.Show(ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+        }
+        private void BtnSelecionarCliente_Click(object sender, RoutedEventArgs e)
+        {
+            var seletor = new SelecionarClienteView();
+            NavigationService.Navigate(seletor);
+
+            NavigationService.Navigated += (s, args) =>
+            {
+                if (seletor.ClienteSelecionado != null)
+                {
+                    clienteSelecionado = seletor.ClienteSelecionado;
+                    txtCpfCliente.Text = clienteSelecionado.Cpf;
+                }
+            };
         }
 
         private void BtnVoltar_Click(object sender, RoutedEventArgs e)

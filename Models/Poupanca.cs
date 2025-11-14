@@ -3,5 +3,11 @@
     public class Poupanca : Conta
     {
         public double TaxaRendimento { get; set; }
+
+        public Poupanca()
+        {
+            TipoConta = "Poupança"; 
+        }
+
     }
 }
