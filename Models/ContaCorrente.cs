@@ -14,10 +14,11 @@
             if (valor <= 0)
                 throw new Exception("O valor deve ser maior que zero.");
 
-            if (Saldo + Limite < valor)
-                throw new Exception("Saldo insuficiente, mesmo com limite.");
+            if (Saldo - valor < -Limite)
+                throw new Exception("Saldo insuficiente, considerando o limite.");
 
             Saldo -= valor;
         }
+
     }
 }
