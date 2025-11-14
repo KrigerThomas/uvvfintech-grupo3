@@ -9,8 +9,8 @@ Criar um **sistema bancário em WPF (C#)** aplicando o padrão **MVC**, princíp
 - **Models/** → classes principais (Cliente, Conta, Transacao)
 - **Controllers/** → lógica de negócios
 - **Views/** → telas WPF (XAML)
-- **Persistencia/** → DbContext e Migrations
-- **Services/** → utilitários e classes auxiliares
+- **DB/** → DbContext e SQLBruto
+
 
 ## ⚙️ Tecnologias
 - C# / .NET 9.0  
