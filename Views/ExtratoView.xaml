@@ -1,0 +1,55 @@
+﻿<Page x:Class="UVVFintech_Grupo3.Views.ExtratoView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      Title="Extrato"
+      Background="#0F172A">
+
+    <Grid>
+        <Border CornerRadius="12"
+                Background="#1E293B"
+                Padding="22"
+                Width="720"
+                Height="598"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+
+            <StackPanel>
+                <TextBlock Text="Extrato"
+                           Foreground="White"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10"
+                           HorizontalAlignment="Center"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                    <StackPanel>
+                        <TextBlock Text="Data início" Foreground="White" Margin="0,0,0,4"/>
+                        <DatePicker x:Name="dpInicio" SelectedDate="{x:Static sys:DateTime.Today}" />
+                    </StackPanel>
+
+                    <StackPanel Margin="20,0,0,0">
+                        <TextBlock Text="Data fim" Foreground="White" Margin="0,0,0,4"/>
+                        <DatePicker x:Name="dpFim" SelectedDate="{x:Static sys:DateTime.Today}" />
+                    </StackPanel>
+
+                    <Button Content="Buscar" Width="120" Height="34" Margin="20,10,0,0" Click="BtnBuscar_Click"/>
+                </StackPanel>
+
+                <ListView x:Name="lvTransacoes" Margin="0,16,0,0" Height="360" Background="#0F172A">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Data" Width="180" DisplayMemberBinding="{Binding Data}"/>
+                            <GridViewColumn Header="Tipo" Width="140" DisplayMemberBinding="{Binding Tipo}"/>
+                            <GridViewColumn Header="Valor" Width="120" DisplayMemberBinding="{Binding Valor}"/>
+                            <GridViewColumn Header="Origem" Width="120" DisplayMemberBinding="{Binding ContaOrigemId}"/>
+                            <GridViewColumn Header="Destino" Width="120" DisplayMemberBinding="{Binding ContaDestinoId}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <Button Content="Voltar" Width="120" Height="34" Margin="0,12,0,0" HorizontalAlignment="Center" Background="#334155" Click="BtnVoltar_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

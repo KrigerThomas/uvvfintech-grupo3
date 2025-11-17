@@ -1,14 +1,9 @@
-﻿using System;
-using System.Text;
-using System.Threading.Tasks;
-using UVVFintech_Grupo3.Models;
-
-namespace UVVFintech_Grupo3.Models
+﻿namespace UVVFintech_Grupo3.Models
 {
     public class Transacao
     {
         public int Id { get; set; }
-        public string Tipo { get; set; } = string.Empty; // "Depósito", "Saque", "Transferência"
+        public string Tipo { get; set; } = string.Empty; 
         public decimal Valor { get; set; }
         public DateTime Data { get; set; }
 

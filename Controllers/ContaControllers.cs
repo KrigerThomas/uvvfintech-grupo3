@@ -87,9 +87,7 @@ namespace UVVFintech_Grupo3.Controllers
         public List<Conta> BuscarPorCpf(string cpf)
         {
             return _db.Contas
-                .Include(c => c.Cliente)
-                .Where(c => c.Cliente.Cpf == cpf)
-                .ToList();
+                .Include(c => c.Cliente).Where(c => c.Cliente.Cpf == cpf).ToList();
         }
 
         // OPERAÇÕES
@@ -167,6 +165,12 @@ namespace UVVFintech_Grupo3.Controllers
         public List<Transacao> ExtratoSql(DateTime inicio, DateTime fim, int contaId)
         {
             return _sql.BuscarExtratoPorPeriodo(inicio, fim, contaId);
+        }
+
+        public Conta GetById(int id)
+        {
+            return _db.Contas.Include(c => c.Cliente).FirstOrDefault(c => c.Id == id)
+                ?? throw new Exception("Conta não encontrada.");
         }
     }
 }
