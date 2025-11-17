@@ -36,6 +36,7 @@
                         <GridView>
                             <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="60"/>
                             <GridViewColumn Header="Número" DisplayMemberBinding="{Binding Numero}" Width="140"/>
+                            <GridViewColumn Header="Cliente" DisplayMemberBinding="{Binding Cliente.Nome}" Width="150"/>
                             <GridViewColumn Header="Saldo" DisplayMemberBinding="{Binding Saldo}" Width="110"/>
                             <GridViewColumn Header="ClienteId" DisplayMemberBinding="{Binding ClienteId}" Width="100"/>
                             <GridViewColumn Header="Tipo" DisplayMemberBinding="{Binding TipoConta}" Width="100"/>
