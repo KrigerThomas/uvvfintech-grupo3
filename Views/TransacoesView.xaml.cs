@@ -28,6 +28,8 @@ namespace UVVFintech_Grupo3.Views
             
             txtContaSelecionada.Text =
                 $"{contaSelecionada.Cliente?.Nome} | {contaSelecionada.TipoConta} | Nº {contaSelecionada.Numero} | Saldo R$: {contaSelecionada.Saldo}";
+            
+            txtValor.Clear();
         }
 
         private void BtnSelecionarConta_Click(object sender, RoutedEventArgs e)
