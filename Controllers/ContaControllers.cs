@@ -152,8 +152,7 @@ namespace UVVFintech_Grupo3.Controllers
             var conta = _db.Contas.Find(id)
                 ?? throw new Exception("Conta não encontrada.");
 
-            bool possuiMov = _db.Transacoes
-                .Any(t => t.ContaOrigemId == id || t.ContaDestinoId == id);
+            bool possuiMov = _db.Transacoes.Any(t => t.ContaOrigemId == id || t.ContaDestinoId == id);
 
             if (possuiMov)
                 throw new Exception("Não é possível excluir uma conta com movimentações.");
