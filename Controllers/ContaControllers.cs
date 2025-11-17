@@ -23,6 +23,20 @@ namespace UVVFintech_Grupo3.Controllers
             _db.SaveChanges();
         }
 
+        public void ExcluirConta(int id)
+        {
+            var conta = _db.Contas.Find(id)
+                ?? throw new Exception("Conta não encontrada.");
+
+            bool possuiMov = _db.Transacoes.Any(t => t.ContaOrigemId == id || t.ContaDestinoId == id);
+
+            if (possuiMov)
+                throw new Exception("Não é possível excluir uma conta com movimentações.");
+
+            _db.Contas.Remove(conta);
+            _db.SaveChanges();
+        }
+
         private void ValidarEntradaCriar(string cpfCliente, string tipo)
         {
             if (string.IsNullOrWhiteSpace(cpfCliente) ||
@@ -86,11 +100,8 @@ namespace UVVFintech_Grupo3.Controllers
 
         public List<Conta> BuscarPorCpf(string cpf)
         {
-            return _db.Contas
-                .Include(c => c.Cliente).Where(c => c.Cliente.Cpf == cpf).ToList();
+            return _db.Contas.Include(c => c.Cliente).Where(c => c.Cliente.Cpf == cpf).ToList();
         }
-
-        // OPERAÇÕES
 
         public void Depositar(int contaId, decimal valor)
         {
@@ -145,20 +156,6 @@ namespace UVVFintech_Grupo3.Controllers
                 ContaOrigemId = origem,
                 ContaDestinoId = destino
             });
-        }
-
-        public void ExcluirConta(int id)
-        {
-            var conta = _db.Contas.Find(id)
-                ?? throw new Exception("Conta não encontrada.");
-
-            bool possuiMov = _db.Transacoes.Any(t => t.ContaOrigemId == id || t.ContaDestinoId == id);
-
-            if (possuiMov)
-                throw new Exception("Não é possível excluir uma conta com movimentações.");
-
-            _db.Contas.Remove(conta);
-            _db.SaveChanges();
         }
 
         public List<Transacao> ExtratoSql(DateTime inicio, DateTime fim, int contaId)

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using UVVFintech_Grupo3.DB;
 using UVVFintech_Grupo3.Models;
@@ -16,7 +14,7 @@ namespace UVVFintech_Grupo3.Views
         {
             InitializeComponent();
             this.contaId = contaId;
-            dpInicio.SelectedDate = DateTime.Today.AddMonths(-1); // default: último mês
+            dpInicio.SelectedDate = DateTime.Today.AddMonths(-1); // Data de hoje - 1 mês
             dpFim.SelectedDate = DateTime.Today;
         }
 
@@ -24,8 +22,11 @@ namespace UVVFintech_Grupo3.Views
         {
             try
             {
-                var inicio = dpInicio.SelectedDate ?? DateTime.Today.AddMonths(-1);
-                var fim = dpFim.SelectedDate ?? DateTime.Today;
+                var inicio = dpInicio.SelectedDate 
+                    ?? DateTime.Today.AddMonths(-1);
+
+                var fim = dpFim.SelectedDate 
+                    ?? DateTime.Today;
 
                 if (inicio > fim)
                     throw new Exception("A data de início não pode ser posterior à data final.");
