@@ -40,7 +40,6 @@ namespace UVVFintech_Grupo3.Views
             {
                 if (string.IsNullOrWhiteSpace(txtCpf.Text))
                 {
-                    // Se CPF não informado → listar todos
                     AtualizarListView();
                     return;
                 }
