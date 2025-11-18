@@ -12,7 +12,6 @@ namespace UVVFintech_Grupo3.Views
         private readonly Conta contaOrigem;
         private Conta? contaDestino;
 
-        // Recebe a conta de origem já selecionada (isso segue o fluxo que implementamos)
         public TransferenciaView(Conta origem)
         {
             InitializeComponent();
@@ -25,7 +24,6 @@ namespace UVVFintech_Grupo3.Views
             var seletor = new SelecionarContaView();
             NavigationService.Navigate(seletor);
 
-            // Ao voltar, pega a conta selecionada
             NavigationService.Navigated += (s, args) =>
             {
                 if (seletor.ContaSelecionada != null)
@@ -46,11 +44,10 @@ namespace UVVFintech_Grupo3.Views
                 if (!decimal.TryParse(txtValor.Text, out decimal valor))
                     throw new Exception("Valor inválido.");
 
-                // Reaproveita lógica do controller (SRP: controller orquestra)
                 _controller.Transferir(contaOrigem.Id, contaDestino.Id, valor);
 
                 MessageBox.Show("Transferência realizada com sucesso!");
-                // Atualiza exibição do saldo na origem (pega novamente da DB para garantir)
+
                 var atualizada = _controller.GetById(contaOrigem.Id);
                 txtOrigem.Text = $"{atualizada.Cliente?.Nome} | {atualizada.TipoConta} | Nº {atualizada.Numero} | Saldo R$ {atualizada.Saldo}";
             }
