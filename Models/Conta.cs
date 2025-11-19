@@ -1,6 +1,6 @@
 ﻿namespace UVVFintech_Grupo3.Models
 {
-    public abstract class Conta : IContaOperacoes
+    public abstract class Conta : IContaOperacoes //OCP - Permite a extensão através de subclasses sem modificar o código existente
     {
         public int Id { get; set; }
         public string Numero { get; set; } = string.Empty;
