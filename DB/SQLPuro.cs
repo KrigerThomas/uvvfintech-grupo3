@@ -3,7 +3,7 @@ using UVVFintech_Grupo3.Models;
 
 namespace UVVFintech_Grupo3.DB
 {
-    public class SQLPuro
+    public class SQLPuro //SRP A classe serve apenas para realizar consultas SQL puras relacionadas a transações
     {
         private readonly string _connectionString =
             "Server=(localdb)\\mssqllocaldb;Database=UVVFintechGrupo3DB;Trusted_Connection=True;";
@@ -30,7 +30,7 @@ namespace UVVFintech_Grupo3.DB
 
             using var reader = cmd.ExecuteReader();
 
-            while (reader.Read())
+            while (reader.Read()) //Cada número representa o índice da coluna na consulta SQL
             {
                 lista.Add(new Transacao
                 {

@@ -4,7 +4,7 @@ using UVVFintech_Grupo3.Models;
 
 namespace UVVFintech_Grupo3.Controllers
 {
-    public class ContaController
+    public class ContaController //SRP - Trata apenas contas e operações, mantendo as regras de negócio centralizadas
     {
         private readonly AppDbContext _db = new();
         private readonly SQLPuro _sql = new();
@@ -103,7 +103,7 @@ namespace UVVFintech_Grupo3.Controllers
             return _db.Contas.Include(c => c.Cliente).Where(c => c.Cliente.Cpf == cpf).ToList();
         }
 
-        public void Depositar(int contaId, decimal valor)
+        public void Depositar(int contaId, decimal valor) //LSP (Poliformismo) - Conta pode ser ContaCorrente ou Poupança, mas ambas implementam Depositar
         {
             var conta = _db.Contas.Find(contaId)
                 ?? throw new Exception("Conta não encontrada.");
@@ -115,7 +115,7 @@ namespace UVVFintech_Grupo3.Controllers
             _db.SaveChanges();
         }
 
-        public void Sacar(int contaId, decimal valor)
+        public void Sacar(int contaId, decimal valor) //LSP - Classes filhas se comportam como Conta mas implementam regras próprias
         {
             var conta = _db.Contas.Find(contaId)
                 ?? throw new Exception("Conta não encontrada.");

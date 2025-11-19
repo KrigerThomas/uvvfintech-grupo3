@@ -4,7 +4,7 @@ using UVVFintech_Grupo3.Models;
 
 namespace UVVFintech_Grupo3.Controllers
 {
-    public class ClienteController
+    public class ClienteController //SRP A classe é responsável por gerenciar as operações relacionadas aos clientes
     {
         private readonly AppDbContext _db = new();
 

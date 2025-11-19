@@ -3,7 +3,7 @@ using UVVFintech_Grupo3.Models;
 
 namespace UVVFintech_Grupo3.DB
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : DbContext //SRP A classe é responsável apenas por gerenciar o contexto do banco de dados
     {
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Conta> Contas { get; set; }
