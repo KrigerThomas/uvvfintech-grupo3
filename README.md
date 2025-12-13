@@ -41,6 +41,10 @@ Cícero Calil
 
 Cauã Caetano
 
+## 📽️ Vídeo apresentação
+
+Segue link do vídeo que foi utilizado como parte da entrega do trabalho: https://youtu.be/DQpRqT9d1d8
+
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais informações.
